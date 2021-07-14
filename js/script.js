@@ -1,44 +1,42 @@
-
+/*
 var post = document.getElementById("ButtonPost");
 var clear = document.getElementById("ButtonClear");
 var mark = document.getElementById("ButtonMark");
 var del = document.getElementById("ButtonDelete");
-
-
-post.addEventListener("click",TodoPost);
-clear.addEventListener("click",TodoClear);
-mark.addEventListener("click",TodoMark);
-del.addEventListener("click",TodoDel);
+*/
+var post = $("#ButtonPost").on("click",TodoPost);
+var clear = $("#ButtonClear").on("click",TodoClear);
+var mark = $("#ButtonMark").on("click",TodoMark);
+var del = $("#ButtonDelete").on("click",TodoDel);
 
 function TodoPost(e)
 {
+    
     e.preventDefault();
-
-    var to_do = document.getElementById("todoText").value;
-    var list = document.getElementById("todoList");
+    var to_do = $("#todoText").val();
+    var list = $("#todoList");
 
     /*
     var currentListHTML = list.innerHTML;
     list.innerHTML = currentListHTML + `<input type = "checkbox" name="todo" class"prueba" /> ${to_do} <br>`
     document.getElementById("todoText").value = "";*/
+    var div = $("<div>");
+    var checkbox = $("<input>");
+    var label = $("<label>");
 
-    var div = document.createElement("div");
-    var checkbox = document.createElement("input");
-    var label = document.createElement("label");
+    checkbox.attr("type","checkbox");
+    checkbox.attr("name","todo");
 
-    checkbox.type = "checkbox";
-    checkbox.name = "todo";
+    label.html(to_do);
 
-    label.textContent = to_do;
-
-    div.appendChild(checkbox);
-    div.appendChild(label);
-    list.appendChild(div);
+    div.append(checkbox);
+    div.append(label);
+    list.append(div);
 }
 
 function TodoClear()
 {
-    var todos = document.getElementsByName("todo");
+    var todos = $("[name='todo']");    
     for (var i = 0; i<todos.length; i++)
     {
         todos[i].checked = false;
@@ -47,7 +45,7 @@ function TodoClear()
 
 function TodoMark()
 {
-    var todos = document.getElementsByName("todo");
+    var todos = $("[name='todo']");
     for (var i = 0; i<todos.length; i++)
     {
         todos[i].checked = true;
@@ -64,7 +62,7 @@ function TodoDel()
     var list = document.getElementsById("todoList");
     list.innerHTML = "";*/
 
-    var todos = document.getElementsByName("todo");
+    var todos = $("[name='todo']");
 
    /*todos.forEach(elemento => {
         if(elemento.checked)
@@ -76,8 +74,8 @@ function TodoDel()
     {
         if(todos[i].checked)
         {
-            todos[i].parentElement.remove();
-            i = -1;
+            $(todos[i]).parent().remove();
+            //i = -1;
         }
     }
 }
